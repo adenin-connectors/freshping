@@ -1,13 +1,7 @@
 {
-  "Open Issues": "Otvoreni Problemi",
-  "All Issues": "Svi Problemi",
-  "You have {0} assigned issues.": "Imate {0} dodeljena problema.",
-  "You have 1 assigned issue.": "Imate 1 dodeljen problem.",
-  "You have no issues assigned.": "Nemate dodeljenih problema.",
-  "There are {0} open issues." : "Imate {0} otvorenih problema.",
-  "There is 1 open issue." : "Imate 1 otvorenih problem.",
-  "There are no open issues." : "Nemate otvorenih problema.",
-  "There are {0} issues." : "Ima {0} problema.",
-  "There is 1 issue." : "Ima 1 problem.",
-  "There are no issues." : "Nema problema."
+  "Servers Down": "Serveri Koji Ne Rade",
+  "All Servers That Are Down": "Svi Serveri Koji Ne Rade",
+  "{0} servers are currently down.": "{0} servera trenutno ne radi.",
+  "1 server is currently down.": "1 server trenutno ne radi.",
+  "All servers are running.": "Svi serveri rade."
 }
