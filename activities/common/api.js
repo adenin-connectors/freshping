@@ -24,6 +24,7 @@ function api(path, opts) {
   opts.headers = Object.assign({
     "Content-Type":'application/json',
     "X-UserName" : _activity.Context.UserName,
+    "X-UserEmail": _activity.Context.UserEmail,
     "X-ClusterKey" : process.env.CLUSTER_KEY || _activity.Context.connector.custom1,
     accept: 'application/json',
     'user-agent': 'adenin Digital Assistant Connector, https://www.adenin.com/digital-assistant'
