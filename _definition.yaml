@@ -9,19 +9,20 @@ ClientSecret: hide
 AccessCodeServiceUrl: hide
 AccessTokenServiceUrl: hide
 Personalized: !!bool true
-ApiKey: required
+WebhookReceiver: !!bool true
+ApiKey: hide
 ServiceUrl: hide
 ServiceUrlHint: ''
 XML2JSON: hide
 ImpersonateOAuth: hide
 Interface: hide
 Custom1: required
-Custom1Label: Roles
-Custom1Hint: 'Comma separated list of roles'
+Custom1Label: Cluster Key
+Custom1Hint: ''
 Custom2: required
-Custom2Label: Endpoint URL
-Custom3: hide
-Custom2Hint: ''
-Custom3Label: Custom Field 3
+Custom2Label: Roles
+Custom2Hint: 'Comma separated list of roles'
+Custom3: required
+Custom3Label: Endpoint URL
 Custom3Hint: ''
 Scopes:
