@@ -14,7 +14,7 @@ function api(path, opts) {
   opts = Object.assign({
     json: true,
     token: _activity.Context.connector.token,
-    endpoint: _activity.Context.connector.custom2,
+    endpoint: _activity.Context.connector.custom3,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
