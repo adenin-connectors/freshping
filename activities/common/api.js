@@ -22,10 +22,10 @@ function api(path, opts) {
   }, opts);
 
   opts.headers = Object.assign({
-    "Content-Type":'application/json',
-    "X-UserName" : _activity.Context.UserName,
-    "X-UserEmail": _activity.Context.UserEmail,
-    "X-ClusterKey" : process.env.CLUSTER_KEY || _activity.Context.connector.custom1,
+    'Content-Type': 'application/json',
+    'X-UserName': _activity.Context.UserName,
+    'X-UserEmail': _activity.Context.UserEmail,
+    'X-ClusterKey': process.env.CLUSTER_KEY || _activity.Context.connector.custom1,
     accept: 'application/json',
     'user-agent': 'adenin Digital Assistant Connector, https://www.adenin.com/digital-assistant'
   }, opts.headers);
@@ -61,8 +61,8 @@ api.stream = (url, opts) => api(url, Object.assign({}, opts, {
 
 for (const x of helpers) {
   const method = x.toUpperCase();
-  api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
-  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
+  api[x] = (url, opts) => api(url, Object.assign({}, opts, {method}));
+  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, {method}));
 }
 
 module.exports = api;
