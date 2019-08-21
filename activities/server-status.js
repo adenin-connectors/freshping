@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use strict';
 const api = require('./common/api');
 
@@ -7,25 +8,31 @@ module.exports = async function (activity) {
 
     const pagination = $.pagination(activity);
     const dateRange = $.dateRange(activity);
-    const response = await api(`/server-status/open?page=${pagination.page}&pageSize=${pagination.pageSize}` +
-      `&startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`);
+
+    const response = await api(`/server-status/open?page=${pagination.page}&pageSize=${pagination.pageSize}&startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`);
 
     if ($.isErrorResponse(activity, response)) return;
 
-    activity.Response.Data.items = response.body.Data.items;
-    if (parseInt(pagination.page) == 1) {
-      let value = response.body.Data.count;
-      activity.Response.Data.title = T(activity, 'Servers Down');
-      activity.Response.Data.link = "";
-      activity.Response.Data.linkLabel = T(activity, 'All Servers That Are Down');
-      activity.Response.Data.actionable = value > 0;
+    const items = response.body.Data.items;
+    let downCount = 0;
 
-      if (value > 0) {
-        activity.Response.Data.value = value;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].description === 'Not Responding') downCount++;
+    }
+
+    activity.Response.Data.items = items;
+
+    if (parseInt(pagination.page) === 1) {
+      activity.Response.Data.title = T(activity, 'Server Status');
+      activity.Response.Data.link = '';
+      activity.Response.Data.linkLabel = T(activity, 'All server statuses');
+      activity.Response.Data.actionable = downCount > 0;
+
+      if (downCount > 0) {
+        activity.Response.Data.value = downCount;
         activity.Response.Data.date = response.body.Data.items[0].date;
         activity.Response.Data.color = 'blue';
-        activity.Response.Data.description = value > 1 ? T(activity, "{0} servers are currently down.", value)
-          : T(activity, "1 server is currently down.");
+        activity.Response.Data.description = downCount > 1 ? T(activity, '{0} servers are currently down.', downCount) : T(activity, '1 server is currently down.');
       } else {
         activity.Response.Data.description = T(activity, 'All servers are running.');
       }
