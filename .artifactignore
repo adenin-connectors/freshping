@@ -1,0 +1,5 @@
+.vscode/
+docs/
+.gcloudignore
+.gitignore
+README.md
