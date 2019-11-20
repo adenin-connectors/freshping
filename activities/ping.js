@@ -4,7 +4,9 @@ const api = require('./common/api');
 module.exports = async (activity) => {
   try {
     api.initialize(activity);
+
     const response = await api('/server-status/open');
+
     if ($.isErrorResponse(activity, response)) return;
 
     activity.Response.Data = {

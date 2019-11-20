@@ -2,7 +2,7 @@
 'use strict';
 const api = require('./common/api');
 
-module.exports = async function (activity) {
+module.exports = async (activity) => {
   try {
     api.initialize(activity);
 
@@ -26,15 +26,17 @@ module.exports = async function (activity) {
       activity.Response.Data.title = T(activity, 'Server Status');
       activity.Response.Data.link = '';
       activity.Response.Data.linkLabel = T(activity, 'All server statuses');
-      activity.Response.Data.actionable = downCount > 0;
+      activity.Response.Data.actionable = downCount > 0 || items.length === 0;
 
       if (downCount > 0) {
         activity.Response.Data.value = downCount;
         activity.Response.Data.date = response.body.Data.items[0].date;
         activity.Response.Data.color = 'blue';
         activity.Response.Data.description = downCount > 1 ? T(activity, '{0} servers are currently down.', downCount) : T(activity, '1 server is currently down.');
-      } else {
+      } else if (items.length > 0) {
         activity.Response.Data.description = T(activity, 'All servers are running.');
+      } else {
+        activity.Response.Data.description = T(activity, 'No server status information received.');
       }
     }
   } catch (error) {
