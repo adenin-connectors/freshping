@@ -24,14 +24,14 @@ module.exports = async (activity) => {
 
     if (parseInt(pagination.page) === 1) {
       activity.Response.Data.title = T(activity, 'Server Status');
-      activity.Response.Data.link = '';
-      activity.Response.Data.linkLabel = T(activity, 'All server statuses');
+      activity.Response.Data.link = 'https://app.freshping.io';
+      activity.Response.Data.linkLabel = T(activity, 'Go to Freshping');
       activity.Response.Data.actionable = downCount > 0 || items.length === 0;
 
       if (downCount > 0) {
         activity.Response.Data.value = downCount;
         activity.Response.Data.date = response.body.Data.items[0].date;
-        activity.Response.Data.color = 'blue';
+        activity.Response.Data.color = 'red';
         activity.Response.Data.description = downCount > 1 ? T(activity, '{0} servers are currently down.', downCount) : T(activity, '1 server is currently down.');
       } else if (items.length > 0) {
         activity.Response.Data.description = T(activity, 'All servers are running.');

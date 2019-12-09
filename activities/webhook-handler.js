@@ -19,10 +19,10 @@ module.exports = async (activity) => {
     const entity = {
       _type: 'server-status',
       id: request.webhook_event_data.check_id,
-      title: request.webhook_event_data.check_name,
-      description: request.webhook_event_data.check_state_name,
-      date: date,
-      link: request.webhook_event_data.request_url
+      title: `${request.webhook_event_data.check_name}: ${request.webhook_event_data.check_state_name}`,
+      color: request.webhook_event_data.check_state_name === 'Available' ? 'green' : 'red',
+      link: request.webhook_event_data.request_url,
+      date: date
     };
 
     activity.Response.Data = {
