@@ -14,10 +14,14 @@ module.exports = async (activity) => {
     if ($.isErrorResponse(activity, response)) return;
 
     const items = response.body.Data.items;
+    const serversDown = [];
     let downCount = 0;
 
     for (let i = 0; i < items.length; i++) {
-      if (items[i].description === 'Not Responding') downCount++;
+      if (items[i].description === 'Not Responding') {
+        downCount++;
+        serversDown.push(items[i]);
+      }
     }
 
     activity.Response.Data.items = items;
@@ -33,6 +37,17 @@ module.exports = async (activity) => {
         activity.Response.Data.date = response.body.Data.items[0].date;
         activity.Response.Data.color = 'red';
         activity.Response.Data.description = downCount > 1 ? T(activity, '{0} servers are currently down.', downCount) : T(activity, '1 server is currently down.');
+
+        switch (downCount) {
+        case 1:
+          activity.Response.Data.briefing = T(activity, `Server <b>${serversDown[0].title}</b> is currently down.`);
+          break;
+        case 2:
+          activity.Response.Data.briefing = T(activity, `Servers <b>${serversDown[0].title}</b> and <b>${serversDown[1].title}</b> are currently down.`);
+          break;
+        default:
+          activity.Response.Data.briefing = T(activity, `Server <b>${serversDown[0].title}</b> and <b>${serversDown.length - 1}</b> more are currently down.`);
+        }
       } else if (items.length > 0) {
         activity.Response.Data.description = T(activity, 'All servers are running.');
       } else {
