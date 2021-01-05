@@ -7,14 +7,20 @@ module.exports = async (activity) => {
     if (!request.webhook_event_data) return;
 
     const date = new Date(request.webhook_event_data.request_start_time).toISOString();
-    const roles = activity.Context.connector.custom2.split(',').map((role) => role.trim());
+    let roles = [];
 
-    const collections = [{
-      name: 'open',
-      users: [],
-      roles: roles,
-      date: date
-    }];
+    if (activity.Context.connector.custom2 && activity.Context.connector.custom2.length) {
+      roles = activity.Context.connector.custom2.split(',').map((role) => role.trim());
+    }
+
+    const collections = [
+      {
+        name: 'open',
+        users: [],
+        roles: roles,
+        date: date
+      }
+    ];
 
     const entity = {
       _type: 'server-status',
